@@ -4,17 +4,44 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
 import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
+import com.mask.androidcompose_demo.ui.theme.Style
+import com.mask.androidcompose_demo.utils.LogUtils
 
 class CommonViewActivity : ComponentActivity() {
 
@@ -33,9 +60,10 @@ class CommonViewActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidCompose_DemoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
                     CommonViewLayout(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -45,10 +73,204 @@ class CommonViewActivity : ComponentActivity() {
 }
 
 @Composable
-fun CommonViewLayout(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
+fun CommonViewLayout(modifier: Modifier = Modifier) {
+    Column(
         modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        CommonButton()
+        CommonTextField()
+        CommonImageDrawable()
+        CommonImageBitmap()
+        CommonImageGlide()
+        CommonProgress()
+    }
+}
+
+@Composable
+private fun CommonButton() {
+    val context = LocalContext.current
+    val btnText = "Button 按钮"
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = btnText
+    )
+    Button(
+        modifier = Modifier
+            .padding(top = 6.dp)
+            .fillMaxWidth()
+            .height(40.dp),
+        contentPadding = PaddingValues(0.dp),
+        onClick = {
+            Toast.makeText(context, btnText, Toast.LENGTH_LONG).show()
+        }) {
+        Text(
+            text = btnText
+        )
+    }
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(12.dp)
+    )
+}
+
+@Composable
+private fun CommonTextField() {
+    val tfText = "TextField 文本输入框"
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = tfText
+    )
+    TextField(
+        modifier = Modifier
+            .padding(top = 6.dp)
+            .fillMaxWidth(),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Red,
+            unfocusedContainerColor = Color.Green,
+            disabledContainerColor = Color.Blue,
+            errorContainerColor = Color.Cyan
+        ),
+        onValueChange = { value ->
+            LogUtils.i("Mask", value)
+        },
+        value = "",
+        placeholder = {
+            Text(
+                text = "$tfText hint"
+            )
+        }
+    )
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(12.dp)
+    )
+}
+
+@Composable
+private fun CommonImageDrawable() {
+    val imgDrawableText = "Image 图片控件 Drawable"
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = imgDrawableText
+    )
+    Box(
+        modifier = Modifier
+            .padding(top = 6.dp)
+            .fillMaxWidth()
+            .height(80.dp)
+            .background(Color(0x80FF0000))
+    ) {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(R.mipmap.image_bx),
+            contentDescription = imgDrawableText
+        )
+    }
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(12.dp)
+    )
+}
+
+@Composable
+private fun CommonImageBitmap() {
+    val imgBitmapText = "Image 图片控件 Bitmap"
+    val bitmap = ImageBitmap.imageResource(R.mipmap.image_bx)
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = imgBitmapText
+    )
+    Box(
+        modifier = Modifier
+            .padding(top = 6.dp)
+            .fillMaxWidth()
+            .height(80.dp)
+            .background(Color(0x80FF0000))
+    ) {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            bitmap = bitmap,
+            contentDescription = imgBitmapText
+        )
+    }
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(12.dp)
+    )
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+private fun CommonImageGlide() {
+    val imgGlideText = "Image 图片控件 Glide"
+    val url = "https://img2.baidu.com/it/u=1069513219,1854441023&fm=253&f=JPEG"
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = imgGlideText
+    )
+    Box(
+        modifier = Modifier
+            .padding(top = 6.dp)
+            .fillMaxWidth()
+            .height(80.dp)
+            .background(Color(0x80FF0000))
+    ) {
+        GlideImage(
+            modifier = Modifier.fillMaxSize(),
+            model = url,
+            contentDescription = imgGlideText,
+            loading = placeholder(R.color.placeholder_loading),
+            failure = placeholder(R.color.placeholder_error)
+        )
+    }
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(12.dp)
+    )
+}
+
+@Composable
+private fun CommonProgress() {
+    val progressText = "ProgressIndicator 进度条"
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = progressText
+    )
+    CircularProgressIndicator(
+        modifier = Modifier
+            .padding(top = 6.dp)
+            .size(60.dp),
+        color = Color(0x80FF0000),
+        trackColor = Color(0xFFF0F0F0),
+        strokeWidth = 6.dp,
+        strokeCap = StrokeCap.Round
+    )
+    LinearProgressIndicator(
+        modifier = Modifier
+            .padding(top = 6.dp)
+            .fillMaxWidth()
+            .height(6.dp),
+        color = Color(0x80FF0000),
+        trackColor = Color(0xFFF0F0F0),
+        strokeCap = StrokeCap.Round
     )
 }
 
@@ -56,6 +278,6 @@ fun CommonViewLayout(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun CommonViewLayoutPreview() {
     AndroidCompose_DemoTheme {
-        CommonViewLayout("Android")
+        CommonViewLayout()
     }
 }

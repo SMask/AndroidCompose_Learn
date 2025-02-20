@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
@@ -24,8 +25,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidCompose_DemoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainLayout(modifier = Modifier.padding(innerPadding))
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    MainLayout(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
@@ -47,7 +52,7 @@ fun MainLayout(modifier: Modifier = Modifier) {
                 CommonViewActivity.startActivity(context)
             }) {
             Text(
-                text = context.getString(R.string.title_activity_common_view)
+                text = stringResource(R.string.title_activity_common_view)
             )
         }
     }
