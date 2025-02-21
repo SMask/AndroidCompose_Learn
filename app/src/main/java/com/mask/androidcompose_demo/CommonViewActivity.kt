@@ -19,6 +19,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
@@ -27,10 +31,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
@@ -40,6 +47,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
+import com.mask.androidcompose_demo.ui.theme.Dimen
 import com.mask.androidcompose_demo.ui.theme.Style
 import com.mask.androidcompose_demo.utils.LogUtils
 
@@ -78,12 +86,15 @@ fun CommonViewLayout(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         CommonButton()
         CommonTextField()
         CommonImageDrawable()
         CommonImageBitmap()
         CommonImageGlide()
+        CommonImageRound()
+        CommonImageCircle(Modifier.align(Alignment.CenterHorizontally))
         CommonProgress()
     }
 }
@@ -99,9 +110,9 @@ private fun CommonButton() {
     )
     Button(
         modifier = Modifier
-            .padding(top = 6.dp)
+            .padding(top = Dimen.padding)
             .fillMaxWidth()
-            .height(40.dp),
+            .height(Dimen.buttonHeight),
         contentPadding = PaddingValues(0.dp),
         onClick = {
             Toast.makeText(context, btnText, Toast.LENGTH_LONG).show()
@@ -114,7 +125,7 @@ private fun CommonButton() {
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
-            .height(12.dp)
+            .height(Dimen.paddingItem)
     )
 }
 
@@ -128,7 +139,7 @@ private fun CommonTextField() {
     )
     TextField(
         modifier = Modifier
-            .padding(top = 6.dp)
+            .padding(top = Dimen.padding)
             .fillMaxWidth(),
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Color.Red,
@@ -142,6 +153,7 @@ private fun CommonTextField() {
         value = "",
         placeholder = {
             Text(
+                color = Color.Gray,
                 text = "$tfText hint"
             )
         }
@@ -150,7 +162,7 @@ private fun CommonTextField() {
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
-            .height(12.dp)
+            .height(Dimen.paddingItem)
     )
 }
 
@@ -164,9 +176,9 @@ private fun CommonImageDrawable() {
     )
     Box(
         modifier = Modifier
-            .padding(top = 6.dp)
+            .padding(top = Dimen.padding)
             .fillMaxWidth()
-            .height(80.dp)
+            .height(120.dp)
             .background(Color(0x80FF0000))
     ) {
         Image(
@@ -179,7 +191,7 @@ private fun CommonImageDrawable() {
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
-            .height(12.dp)
+            .height(Dimen.paddingItem)
     )
 }
 
@@ -194,9 +206,9 @@ private fun CommonImageBitmap() {
     )
     Box(
         modifier = Modifier
-            .padding(top = 6.dp)
+            .padding(top = Dimen.padding)
             .fillMaxWidth()
-            .height(80.dp)
+            .height(120.dp)
             .background(Color(0x80FF0000))
     ) {
         Image(
@@ -209,7 +221,7 @@ private fun CommonImageBitmap() {
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
-            .height(12.dp)
+            .height(Dimen.paddingItem)
     )
 }
 
@@ -225,9 +237,9 @@ private fun CommonImageGlide() {
     )
     Box(
         modifier = Modifier
-            .padding(top = 6.dp)
+            .padding(top = Dimen.padding)
             .fillMaxWidth()
-            .height(80.dp)
+            .height(120.dp)
             .background(Color(0x80FF0000))
     ) {
         GlideImage(
@@ -242,7 +254,70 @@ private fun CommonImageGlide() {
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
-            .height(12.dp)
+            .height(Dimen.paddingItem)
+    )
+}
+
+@Composable
+private fun CommonImageRound() {
+    val imgRoundText = "Image 图片控件 圆角"
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = imgRoundText
+    )
+    Box(
+        modifier = Modifier
+            .padding(top = Dimen.padding)
+            .fillMaxWidth()
+            .height(120.dp)
+            .background(Color(0x80FF0000))
+    ) {
+        Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(Dimen.radius)),
+            contentScale = ContentScale.Crop,
+            painter = painterResource(R.mipmap.image_bx),
+            contentDescription = imgRoundText
+        )
+    }
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(Dimen.paddingItem)
+    )
+}
+
+@Composable
+private fun CommonImageCircle(modifier: Modifier) {
+    val imgCircleText = "Image 图片控件 圆形"
+
+    Text(
+        style = Style.TextStyle.LABEL,
+        text = imgCircleText
+    )
+    Box(
+        modifier = modifier
+            .padding(top = Dimen.padding)
+            .size(120.dp)
+            .background(Color(0x80FF0000))
+    ) {
+        Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape),
+            contentScale = ContentScale.Crop,
+            painter = painterResource(R.mipmap.image_bx),
+            contentDescription = imgCircleText
+        )
+    }
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(Dimen.paddingItem)
     )
 }
 
@@ -256,8 +331,8 @@ private fun CommonProgress() {
     )
     CircularProgressIndicator(
         modifier = Modifier
-            .padding(top = 6.dp)
-            .size(60.dp),
+            .padding(top = Dimen.padding)
+            .size(80.dp),
         color = Color(0x80FF0000),
         trackColor = Color(0xFFF0F0F0),
         strokeWidth = 6.dp,
@@ -265,7 +340,7 @@ private fun CommonProgress() {
     )
     LinearProgressIndicator(
         modifier = Modifier
-            .padding(top = 6.dp)
+            .padding(top = Dimen.padding)
             .fillMaxWidth()
             .height(6.dp),
         color = Color(0x80FF0000),
