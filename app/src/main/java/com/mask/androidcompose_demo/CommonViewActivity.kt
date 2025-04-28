@@ -183,7 +183,7 @@ private fun CommonImageDrawable() {
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(R.mipmap.image_bx),
+            painter = painterResource(R.drawable.image_bx),
             contentDescription = imgDrawableText
         )
     }
@@ -198,7 +198,7 @@ private fun CommonImageDrawable() {
 @Composable
 private fun CommonImageBitmap() {
     val imgBitmapText = "Image 图片控件 Bitmap"
-    val bitmap = ImageBitmap.imageResource(R.mipmap.image_bx)
+    val bitmap = ImageBitmap.imageResource(R.drawable.image_bx)
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -278,7 +278,7 @@ private fun CommonImageRound() {
                 .fillMaxSize()
                 .clip(RoundedCornerShape(Dimen.radius)),
             contentScale = ContentScale.Crop,
-            painter = painterResource(R.mipmap.image_bx),
+            painter = painterResource(R.drawable.image_bx),
             contentDescription = imgRoundText
         )
     }
@@ -309,7 +309,7 @@ private fun CommonImageCircle(modifier: Modifier) {
                 .fillMaxSize()
                 .clip(CircleShape),
             contentScale = ContentScale.Crop,
-            painter = painterResource(R.mipmap.image_bx),
+            painter = painterResource(R.drawable.image_bx),
             contentDescription = imgCircleText
         )
     }
