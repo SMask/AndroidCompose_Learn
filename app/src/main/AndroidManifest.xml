@@ -29,6 +29,11 @@
             android:exported="false"
             android:label="@string/title_activity_common_view"
             android:theme="@style/Theme.AndroidCompose_Demo" />
+        <activity
+            android:name=".DraggableViewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_draggable_view"
+            android:theme="@style/Theme.AndroidCompose_Demo" />
     </application>
 
 </manifest>
