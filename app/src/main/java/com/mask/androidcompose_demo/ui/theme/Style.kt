@@ -21,6 +21,13 @@ object Style {
             fontSize = 11.sp,
             color = Color.Gray
         )
+
+        val CONTENT = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp,
+            color = Color.Black
+        )
     }
 
 }
