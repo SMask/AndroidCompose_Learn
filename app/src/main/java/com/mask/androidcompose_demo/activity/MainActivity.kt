@@ -46,8 +46,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainLayout(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val buttonModifier = Modifier
-        .padding(top = Dimen.padding)
+
+    fun buttonModifier(isTopPadding: Boolean = true) = Modifier
+        .padding(top = if (isTopPadding) Dimen.padding else 0.dp)
         .fillMaxWidth()
 
     Column(
@@ -57,19 +58,19 @@ fun MainLayout(modifier: Modifier = Modifier) {
             .verticalScroll(rememberScrollState())
     ) {
         ActivityButton(
-            modifier = buttonModifier,
+            modifier = buttonModifier(false),
             textResId = R.string.title_activity_common_view,
             onClick = {
                 CommonViewActivity.startActivity(context)
             })
         ActivityButton(
-            modifier = buttonModifier,
+            modifier = buttonModifier(),
             textResId = R.string.title_activity_draggable_view,
             onClick = {
                 DraggableViewActivity.startActivity(context)
             })
         ActivityButton(
-            modifier = buttonModifier,
+            modifier = buttonModifier(),
             textResId = R.string.title_activity_state,
             onClick = {
                 StateActivity.startActivity(context)
