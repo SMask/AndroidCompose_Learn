@@ -31,6 +31,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -131,7 +135,8 @@ private fun CommonButton() {
 
 @Composable
 private fun CommonTextField() {
-    val tfText = "TextField 文本输入框"
+    var content by rememberSaveable { mutableStateOf("") }
+    val tfText = "TextField 文本输入框(旋转屏幕不会丢失输入内容)"
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -142,15 +147,16 @@ private fun CommonTextField() {
             .padding(top = Dimen.padding)
             .fillMaxWidth(),
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Red,
-            unfocusedContainerColor = Color.Green,
-            disabledContainerColor = Color.Blue,
+            focusedContainerColor = Color(0x80FF0000),
+            unfocusedContainerColor = Color(0x8000FF00),
+            disabledContainerColor = Color(0x800000FF),
             errorContainerColor = Color.Cyan
         ),
         onValueChange = { value ->
             LogUtils.i("Mask", value)
+            content = value
         },
-        value = "",
+        value = content,
         placeholder = {
             Text(
                 color = Color.Gray,
