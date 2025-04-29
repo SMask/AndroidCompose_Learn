@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Box
@@ -26,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -71,6 +73,7 @@ fun DraggableViewLayout(modifier: Modifier = Modifier) {
     ) {
         DraggableHorizontal(Modifier.align(alignment = Alignment.TopCenter))
         DraggableVertical(Modifier.align(alignment = Alignment.CenterStart))
+        Draggable(Modifier.align(alignment = Alignment.Center))
     }
 }
 
@@ -114,7 +117,7 @@ fun DraggableVertical(modifier: Modifier = Modifier) {
                 IntOffset(0, yOffset.roundToInt())
             }
             .size(100.dp)
-            .background(Color(0x80FF0000))
+            .background(Color(0x8000FF00))
             .draggable(
                 orientation = Orientation.Vertical,
                 state = rememberDraggableState { delta ->
@@ -126,6 +129,36 @@ fun DraggableVertical(modifier: Modifier = Modifier) {
                 .align(Alignment.Center),
             style = Style.TextStyle.CONTENT,
             text = yText
+        )
+    }
+}
+
+@Composable
+fun Draggable(modifier: Modifier = Modifier) {
+    var xOffset by remember { mutableFloatStateOf(0f) }
+    var yOffset by remember { mutableFloatStateOf(0f) }
+    val text = "任意拖拽"
+
+    Box(
+        modifier = modifier
+            .offset {
+                IntOffset(xOffset.roundToInt(), yOffset.roundToInt())
+            }
+            .size(100.dp)
+            .background(Color(0x800000FF))
+            .pointerInput(Unit) {
+                detectDragGestures { change, dragAmount ->
+                    change.consume()
+                    xOffset += dragAmount.x
+                    yOffset += dragAmount.y
+                }
+            }
+    ) {
+        Text(
+            modifier = Modifier
+                .align(Alignment.Center),
+            style = Style.TextStyle.CONTENT,
+            text = text
         )
     }
 }
