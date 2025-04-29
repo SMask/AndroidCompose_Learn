@@ -99,7 +99,9 @@ fun CommonViewLayout(modifier: Modifier = Modifier) {
         CommonImageBitmap()
         CommonImageGlide()
         CommonImageRound()
-        CommonImageCircle(Modifier.align(Alignment.CenterHorizontally))
+        CommonImageCircle(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
         CommonProgress()
     }
 }

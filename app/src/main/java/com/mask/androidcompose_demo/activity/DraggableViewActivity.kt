@@ -71,9 +71,15 @@ fun DraggableViewLayout(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
     ) {
-        DraggableHorizontal(Modifier.align(alignment = Alignment.TopCenter))
-        DraggableVertical(Modifier.align(alignment = Alignment.CenterStart))
-        Draggable(Modifier.align(alignment = Alignment.Center))
+        DraggableHorizontal(
+            modifier = Modifier.align(alignment = Alignment.TopCenter)
+        )
+        DraggableVertical(
+            modifier = Modifier.align(alignment = Alignment.CenterStart)
+        )
+        Draggable(
+            modifier = Modifier.align(alignment = Alignment.Center)
+        )
     }
 }
 
