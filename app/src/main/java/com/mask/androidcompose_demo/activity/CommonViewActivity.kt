@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo
+package com.mask.androidcompose_demo.activity
 
 import android.app.Activity
 import android.content.Context
@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
+import com.mask.androidcompose_demo.R
 import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
 import com.mask.androidcompose_demo.ui.theme.Dimen
 import com.mask.androidcompose_demo.ui.theme.Style

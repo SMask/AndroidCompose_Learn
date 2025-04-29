@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo
+package com.mask.androidcompose_demo.activity
 
 import android.app.Activity
 import android.content.Context

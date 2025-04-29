@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidCompose_Demo">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AndroidCompose_Demo">
@@ -25,12 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CommonViewActivity"
+            android:name=".activity.CommonViewActivity"
             android:exported="false"
             android:label="@string/title_activity_common_view"
             android:theme="@style/Theme.AndroidCompose_Demo" />
         <activity
-            android:name=".DraggableViewActivity"
+            android:name=".activity.DraggableViewActivity"
             android:exported="false"
             android:label="@string/title_activity_draggable_view"
             android:theme="@style/Theme.AndroidCompose_Demo" />
