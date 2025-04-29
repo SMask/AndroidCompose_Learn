@@ -46,6 +46,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainLayout(modifier: Modifier = Modifier) {
     val context = LocalContext.current
+    val buttonModifier = Modifier
+        .padding(top = Dimen.padding)
+        .fillMaxWidth()
 
     Column(
         modifier = modifier
@@ -53,41 +56,39 @@ fun MainLayout(modifier: Modifier = Modifier) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(Dimen.buttonHeight),
+        ActivityButton(
+            modifier = buttonModifier,
+            textResId = R.string.title_activity_common_view,
             onClick = {
                 CommonViewActivity.startActivity(context)
-            }) {
-            Text(
-                text = stringResource(R.string.title_activity_common_view)
-            )
-        }
-        Button(
-            modifier = Modifier
-                .padding(top = Dimen.padding)
-                .fillMaxWidth()
-                .height(Dimen.buttonHeight),
+            })
+        ActivityButton(
+            modifier = buttonModifier,
+            textResId = R.string.title_activity_draggable_view,
             onClick = {
                 DraggableViewActivity.startActivity(context)
-            }) {
-            Text(
-                text = stringResource(R.string.title_activity_draggable_view)
-            )
-        }
-        Button(
-            modifier = Modifier
-                .padding(top = Dimen.padding)
-                .fillMaxWidth()
-                .height(Dimen.buttonHeight),
+            })
+        ActivityButton(
+            modifier = buttonModifier,
+            textResId = R.string.title_activity_state,
             onClick = {
                 StateActivity.startActivity(context)
-            }) {
-            Text(
-                text = stringResource(R.string.title_activity_state)
-            )
+            })
+    }
+}
+
+@Composable
+fun ActivityButton(textResId: Int, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Button(
+        modifier = modifier
+            .height(Dimen.buttonHeight),
+        onClick = {
+            onClick()
         }
+    ) {
+        Text(
+            text = stringResource(textResId)
+        )
     }
 }
 
