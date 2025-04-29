@@ -76,6 +76,18 @@ fun MainLayout(modifier: Modifier = Modifier) {
                 text = stringResource(R.string.title_activity_draggable_view)
             )
         }
+        Button(
+            modifier = Modifier
+                .padding(top = Dimen.padding)
+                .fillMaxWidth()
+                .height(Dimen.buttonHeight),
+            onClick = {
+                StateActivity.startActivity(context)
+            }) {
+            Text(
+                text = stringResource(R.string.title_activity_state)
+            )
+        }
     }
 }
 
