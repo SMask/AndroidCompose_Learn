@@ -10,16 +10,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -30,9 +35,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
+import com.mask.compose.R
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
@@ -108,14 +120,20 @@ fun FloatingButton(modifier: Modifier = Modifier) {
 
 @Composable
 fun ListRoot(state: LazyListState, modifier: Modifier = Modifier) {
-    val list = (0..100).toMutableList()
+    val dataList = (1..100).toMutableList()
+
     LazyColumn(
         modifier = modifier
             .padding(Dimen.padding),
         verticalArrangement = Arrangement.spacedBy(Dimen.padding),
         state = state
     ) {
-        itemsIndexed(list) { index, data ->
+        item {
+            ListHeader(
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        itemsIndexed(dataList) { index, data ->
             ListItem(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -156,6 +174,52 @@ fun ListItem(
             Text(
                 text = actionText
             )
+        }
+    }
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+fun ListHeader(modifier: Modifier = Modifier) {
+    val url = "https://img2.baidu.com/it/u=1069513219,1854441023&fm=253&f=JPEG"
+    val dataList = (1..100).toMutableList()
+
+    Column(
+        modifier = modifier
+    ) {
+        GlideImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(16f / 9f),
+            contentScale = ContentScale.Crop,
+            model = url,
+            contentDescription = "GlideImage",
+            loading = placeholder(R.color.placeholder_loading),
+            failure = placeholder(R.color.placeholder_error)
+        )
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimen.padding)
+                .height(120.dp),
+            horizontalArrangement = Arrangement.spacedBy(Dimen.padding)
+        ) {
+            itemsIndexed(dataList) { index, data ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .aspectRatio(9f / 16f)
+                        .clip(RoundedCornerShape(Dimen.radius))
+                        .background(Color(0x8000FF00))
+                        .padding(Dimen.padding)
+                ) {
+                    Text(
+                        modifier = Modifier.align(Alignment.Center),
+                        style = Style.TextStyle.CONTENT,
+                        text = "$index - $data"
+                    )
+                }
+            }
         }
     }
 }
