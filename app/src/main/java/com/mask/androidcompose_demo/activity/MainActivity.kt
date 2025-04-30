@@ -62,25 +62,29 @@ fun MainLayout(modifier: Modifier = Modifier) {
             textResId = R.string.title_activity_common_view,
             onClick = {
                 CommonViewActivity.startActivity(context)
-            })
+            }
+        )
         ActivityButton(
             modifier = buttonModifier(),
             textResId = R.string.title_activity_draggable_view,
             onClick = {
                 DraggableViewActivity.startActivity(context)
-            })
+            }
+        )
         ActivityButton(
             modifier = buttonModifier(),
             textResId = R.string.title_activity_state_view_model,
             onClick = {
                 StateViewModelActivity.startActivity(context)
-            })
+            }
+        )
         ActivityButton(
             modifier = buttonModifier(),
             textResId = R.string.title_activity_list,
             onClick = {
                 ListActivity.startActivity(context)
-            })
+            }
+        )
     }
 }
 

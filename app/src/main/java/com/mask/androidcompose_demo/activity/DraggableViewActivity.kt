@@ -100,7 +100,8 @@ fun DraggableHorizontal(modifier: Modifier = Modifier) {
                 orientation = Orientation.Horizontal,
                 state = rememberDraggableState { delta ->
                     xOffset += delta
-                })
+                }
+            )
     ) {
         Text(
             modifier = Modifier
@@ -128,7 +129,8 @@ fun DraggableVertical(modifier: Modifier = Modifier) {
                 orientation = Orientation.Vertical,
                 state = rememberDraggableState { delta ->
                     yOffset += delta
-                })
+                }
+            )
     ) {
         Text(
             modifier = Modifier

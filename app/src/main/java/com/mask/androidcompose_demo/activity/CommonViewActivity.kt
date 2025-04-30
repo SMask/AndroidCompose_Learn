@@ -123,7 +123,8 @@ private fun CommonButton() {
         contentPadding = PaddingValues(0.dp),
         onClick = {
             Toast.makeText(context, btnText, Toast.LENGTH_LONG).show()
-        }) {
+        }
+    ) {
         Text(
             text = btnText
         )
