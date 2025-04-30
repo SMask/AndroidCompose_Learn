@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo
+package com.mask.compose
 
 import android.app.Application
 import java.security.SecureRandom

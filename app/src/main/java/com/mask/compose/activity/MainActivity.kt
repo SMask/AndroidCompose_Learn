@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo.activity
+package com.mask.compose.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,9 +20,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mask.androidcompose_demo.R
-import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
-import com.mask.androidcompose_demo.ui.theme.Dimen
+import com.mask.compose.R
+import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
+import com.mask.compose.ui.theme.Dimen
 
 class MainActivity : ComponentActivity() {
 

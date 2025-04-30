@@ -1,7 +1,7 @@
-package com.mask.androidcompose_demo.utils
+package com.mask.compose.utils
 
 import android.widget.Toast
-import com.mask.androidcompose_demo.App
+import com.mask.compose.App
 
 /**
  * ToastUtils

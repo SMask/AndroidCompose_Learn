@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo.activity
+package com.mask.compose.activity
 
 import android.app.Activity
 import android.content.Context
@@ -31,9 +31,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
-import com.mask.androidcompose_demo.ui.theme.Dimen
-import com.mask.androidcompose_demo.ui.theme.Style
+import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
+import com.mask.compose.ui.theme.Dimen
+import com.mask.compose.ui.theme.Style
 import kotlin.math.roundToInt
 
 class DraggableViewActivity : ComponentActivity() {

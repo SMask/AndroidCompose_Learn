@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo.ui.theme
+package com.mask.compose.ui.theme
 
 import androidx.compose.ui.unit.dp
 

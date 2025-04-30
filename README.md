@@ -1,2 +1,2 @@
-# AndroidCompose_Demo
-AndroidCompose_Demo
+# AndroidCompose_Learn
+AndroidCompose_Learn

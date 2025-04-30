@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mask.androidcompose_demo"
+    namespace = "com.mask.compose"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.mask.androidcompose_demo"
+        applicationId = "com.mask.compose"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo.utils
+package com.mask.compose.utils
 
 import android.util.Log
 

@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo.activity
+package com.mask.compose.activity
 
 import android.app.Activity
 import android.content.Context
@@ -33,11 +33,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
-import com.mask.androidcompose_demo.ui.theme.Dimen
-import com.mask.androidcompose_demo.ui.theme.Style
-import com.mask.androidcompose_demo.utils.ToastUtils
-import com.mask.androidcompose_demo.viewmodel.ListViewModel
+import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
+import com.mask.compose.ui.theme.Dimen
+import com.mask.compose.ui.theme.Style
+import com.mask.compose.utils.ToastUtils
+import com.mask.compose.viewmodel.ListViewModel
 
 class ListActivity : ComponentActivity() {
 

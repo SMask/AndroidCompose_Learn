@@ -1,4 +1,4 @@
-package com.mask.androidcompose_demo.viewmodel
+package com.mask.compose.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
