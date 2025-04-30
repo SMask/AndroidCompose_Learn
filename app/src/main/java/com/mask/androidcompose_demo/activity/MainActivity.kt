@@ -71,9 +71,9 @@ fun MainLayout(modifier: Modifier = Modifier) {
             })
         ActivityButton(
             modifier = buttonModifier(),
-            textResId = R.string.title_activity_state,
+            textResId = R.string.title_activity_state_view_model,
             onClick = {
-                StateActivity.startActivity(context)
+                StateViewModelActivity.startActivity(context)
             })
     }
 }

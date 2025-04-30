@@ -35,9 +35,9 @@
             android:label="@string/title_activity_draggable_view"
             android:theme="@style/Theme.AndroidCompose_Demo" />
         <activity
-            android:name=".activity.StateActivity"
+            android:name=".activity.StateViewModelActivity"
             android:exported="false"
-            android:label="@string/title_activity_state"
+            android:label="@string/title_activity_state_view_model"
             android:theme="@style/Theme.AndroidCompose_Demo" />
     </application>
 
