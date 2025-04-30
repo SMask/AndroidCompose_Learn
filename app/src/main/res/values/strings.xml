@@ -3,4 +3,5 @@
     <string name="title_activity_common_view">基础控件</string>
     <string name="title_activity_draggable_view">可拖拽控件</string>
     <string name="title_activity_state_view_model">StateViewModel</string>
+    <string name="title_activity_list">列表</string>
 </resources>

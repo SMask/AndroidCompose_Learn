@@ -75,6 +75,12 @@ fun MainLayout(modifier: Modifier = Modifier) {
             onClick = {
                 StateViewModelActivity.startActivity(context)
             })
+        ActivityButton(
+            modifier = buttonModifier(),
+            textResId = R.string.title_activity_list,
+            onClick = {
+                ListActivity.startActivity(context)
+            })
     }
 }
 

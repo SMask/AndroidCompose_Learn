@@ -39,6 +39,11 @@
             android:exported="false"
             android:label="@string/title_activity_state_view_model"
             android:theme="@style/Theme.AndroidCompose_Demo" />
+        <activity
+            android:name=".activity.ListActivity"
+            android:exported="false"
+            android:label="@string/title_activity_list"
+            android:theme="@style/Theme.AndroidCompose_Demo" />
     </application>
 
 </manifest>

@@ -1,0 +1,125 @@
+package com.mask.androidcompose_demo.activity
+
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
+import com.mask.androidcompose_demo.ui.theme.Dimen
+import com.mask.androidcompose_demo.ui.theme.Style
+import com.mask.androidcompose_demo.viewmodel.ListViewModel
+
+class ListActivity : ComponentActivity() {
+
+    companion object {
+        fun startActivity(context: Context) {
+            val intent = Intent(context, ListActivity::class.java)
+            if (context !is Activity) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            AndroidCompose_DemoTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    ListLayout(
+                        modifier = Modifier.padding(innerPadding),
+                        viewModel = viewModel()
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
+    val list = (0..20).toMutableList()
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(Dimen.padding),
+        verticalArrangement = Arrangement.spacedBy(Dimen.padding)
+    ) {
+        itemsIndexed(list) { index, data ->
+            ListItem(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                content = "Content $index",
+                actionText = "Action $data",
+                onClick = {
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun ListItem(
+    content: String,
+    actionText: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .background(Color(0x80FF0000))
+            .padding(Dimen.padding),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            style = Style.TextStyle.CONTENT,
+            text = content
+        )
+        Button(
+            modifier = Modifier
+                .height(Dimen.buttonHeight),
+            onClick = {
+                onClick()
+            }
+        ) {
+            Text(
+                text = actionText
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ListLayoutPreview() {
+    AndroidCompose_DemoTheme {
+        ListLayout(
+            viewModel = viewModel()
+        )
+    }
+}
