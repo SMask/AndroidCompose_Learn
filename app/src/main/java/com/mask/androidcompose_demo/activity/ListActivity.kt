@@ -9,14 +9,22 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +36,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mask.androidcompose_demo.ui.theme.AndroidCompose_DemoTheme
 import com.mask.androidcompose_demo.ui.theme.Dimen
 import com.mask.androidcompose_demo.ui.theme.Style
+import com.mask.androidcompose_demo.utils.ToastUtils
 import com.mask.androidcompose_demo.viewmodel.ListViewModel
 
 class ListActivity : ComponentActivity() {
@@ -62,12 +71,49 @@ class ListActivity : ComponentActivity() {
 
 @Composable
 fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
-    val list = (0..20).toMutableList()
-    LazyColumn(
+    val listState = rememberLazyListState()
+
+    Box(
         modifier = modifier
             .fillMaxSize()
+    ) {
+        ListRoot(
+            modifier = Modifier.fillMaxSize(),
+            state = listState
+        )
+
+        val isVisibleFloatingButton = listState.firstVisibleItemIndex <= 2
+        if (isVisibleFloatingButton) {
+            FloatingButton(
+                modifier = Modifier
+                    .padding(Dimen.padding)
+                    .align(Alignment.BottomEnd)
+            )
+        }
+    }
+}
+
+@Composable
+fun FloatingButton(modifier: Modifier = Modifier) {
+    FloatingActionButton(
+        modifier = modifier,
+        shape = CircleShape,
+        onClick = {
+            ToastUtils.show("FloatingActionButton")
+        }
+    ) {
+        Icon(Icons.Filled.Add, "Add")
+    }
+}
+
+@Composable
+fun ListRoot(state: LazyListState, modifier: Modifier = Modifier) {
+    val list = (0..100).toMutableList()
+    LazyColumn(
+        modifier = modifier
             .padding(Dimen.padding),
-        verticalArrangement = Arrangement.spacedBy(Dimen.padding)
+        verticalArrangement = Arrangement.spacedBy(Dimen.padding),
+        state = state
     ) {
         itemsIndexed(list) { index, data ->
             ListItem(
