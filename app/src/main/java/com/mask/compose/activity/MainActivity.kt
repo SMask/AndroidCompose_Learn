@@ -93,9 +93,7 @@ fun ActivityButton(textResId: Int, onClick: () -> Unit, modifier: Modifier = Mod
     Button(
         modifier = modifier
             .height(Dimen.buttonHeight),
-        onClick = {
-            onClick()
-        }
+        onClick = onClick
     ) {
         Text(
             text = stringResource(textResId)

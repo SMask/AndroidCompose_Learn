@@ -27,12 +27,17 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,8 +53,8 @@ import com.mask.compose.R
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
-import com.mask.compose.utils.ToastUtils
 import com.mask.compose.viewmodel.ListViewModel
+import com.mask.compose.vo.ListItemVo
 
 class ListActivity : ComponentActivity() {
 
@@ -84,43 +89,67 @@ class ListActivity : ComponentActivity() {
 @Composable
 fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
     val listState = rememberLazyListState()
+    val totalPrice by viewModel.totalPrice.observeAsState(0)
 
     Box(
         modifier = modifier
             .fillMaxSize()
     ) {
-        ListRoot(
-            modifier = Modifier.fillMaxSize(),
-            state = listState
-        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            ListRoot(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(0.dp)
+                    .weight(1f),
+                viewModel = viewModel,
+                state = listState
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .background(Color(0x80CCCCCC))
+            ) {
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = Dimen.padding),
+                    style = Style.TextStyle.CONTENT,
+                    text = "总价格：$totalPrice"
+                )
+            }
+        }
 
         val isVisibleFloatingButton = listState.firstVisibleItemIndex <= 2
         if (isVisibleFloatingButton) {
             FloatingButton(
                 modifier = Modifier
                     .padding(Dimen.padding)
-                    .align(Alignment.BottomEnd)
+                    .align(Alignment.BottomEnd),
+                onClick = {
+                    viewModel.addItem()
+                }
             )
         }
     }
 }
 
 @Composable
-fun FloatingButton(modifier: Modifier = Modifier) {
+fun FloatingButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     FloatingActionButton(
         modifier = modifier,
         shape = CircleShape,
-        onClick = {
-            ToastUtils.show("FloatingActionButton")
-        }
+        onClick = onClick
     ) {
         Icon(Icons.Filled.Add, "Add")
     }
 }
 
 @Composable
-fun ListRoot(state: LazyListState, modifier: Modifier = Modifier) {
-    val dataList = (1..100).toMutableList()
+fun ListRoot(state: LazyListState, viewModel: ListViewModel, modifier: Modifier = Modifier) {
+    val dataList by viewModel.itemList.observeAsState(emptyList())
 
     LazyColumn(
         modifier = modifier
@@ -134,19 +163,19 @@ fun ListRoot(state: LazyListState, modifier: Modifier = Modifier) {
             )
         }
         itemsIndexed(
-            items = dataList,
-            key = { index, data ->
-                data
+            items = dataList ?: emptyList(),
+            key = { _, data ->
+                data?.id ?: ""
             }
-        ) { index, data ->
-            ListItem(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                content = "Content $index",
-                actionText = "Action $data",
-                onClick = {
-                }
-            )
+        ) { _, data ->
+            if (data != null) {
+                ListItem(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    data = data,
+                    viewModel = viewModel
+                )
+            }
         }
         item {
             ListFooter(
@@ -157,33 +186,51 @@ fun ListRoot(state: LazyListState, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ListItem(
-    content: String,
-    actionText: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
+fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .background(Color(0x80FF0000))
             .padding(Dimen.padding),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            style = Style.TextStyle.CONTENT,
-            text = content
-        )
-        Button(
-            modifier = Modifier
-                .height(Dimen.buttonHeight),
-            onClick = {
-                onClick()
-            }
+        Column(
+            modifier = Modifier.weight(1f)
         ) {
             Text(
-                text = actionText
+                style = Style.TextStyle.CONTENT,
+                text = "Id: ${data.id}"
             )
+            Text(
+                style = Style.TextStyle.CONTENT,
+                text = "Name: ${data.name}"
+            )
+            Text(
+                style = Style.TextStyle.CONTENT,
+                text = "Price: ${data.price}"
+            )
+            Text(
+                style = Style.TextStyle.CONTENT,
+                text = "Quantity: ${data.quantity}"
+            )
+            Text(
+                style = Style.TextStyle.CONTENT,
+                text = "Total Price: ${data.totalPrice}"
+            )
+        }
+        IconButton(onClick = {
+            viewModel.deleteItem(data.id)
+        }) {
+            Icon(Icons.Default.Delete, contentDescription = "Delete")
+        }
+        IconButton(onClick = {
+            viewModel.minusQuantity(data.id)
+        }) {
+            Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Delete")
+        }
+        IconButton(onClick = {
+            viewModel.addQuantity(data.id)
+        }) {
+            Icon(Icons.Default.KeyboardArrowUp, contentDescription = "Minus")
         }
     }
 }
@@ -217,7 +264,7 @@ fun ListHeader(modifier: Modifier = Modifier) {
         ) {
             itemsIndexed(
                 items = dataList,
-                key = { index, data ->
+                key = { _, data ->
                     data
                 }
             ) { index, data ->
@@ -257,7 +304,7 @@ fun ListFooter(modifier: Modifier = Modifier) {
         ) {
             itemsIndexed(
                 items = dataList,
-                key = { index, data ->
+                key = { _, data ->
                     data
                 }
             ) { index, data ->

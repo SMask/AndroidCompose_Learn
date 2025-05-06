@@ -114,9 +114,7 @@ fun StateViewModelCounter(
         Button(
             modifier = Modifier
                 .height(Dimen.buttonHeight),
-            onClick = {
-                onClick()
-            }
+            onClick = onClick
         ) {
             Text(
                 text = actionText
