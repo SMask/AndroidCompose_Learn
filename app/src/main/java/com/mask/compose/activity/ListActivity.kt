@@ -7,6 +7,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +34,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -91,7 +95,7 @@ class ListActivity : ComponentActivity() {
 @Composable
 fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
     val listState = rememberLazyListState()
-    val isVisibleFloatingButton by remember { derivedStateOf { listState.firstVisibleItemIndex <= 2 } }
+    val isVisibleFloatingButton by remember { derivedStateOf { listState.firstVisibleItemIndex <= 0 } }
     val totalPrice by viewModel.totalPrice.observeAsState(0)
 
     Box(
@@ -124,11 +128,15 @@ fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
             }
         }
 
-        if (isVisibleFloatingButton) {
+        AnimatedVisibility(
+            modifier = Modifier
+                .padding(Dimen.padding)
+                .align(Alignment.BottomEnd),
+            visible = isVisibleFloatingButton,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
             FloatingButton(
-                modifier = Modifier
-                    .padding(Dimen.padding)
-                    .align(Alignment.BottomEnd),
                 onClick = {
                     viewModel.addItem()
                 }
@@ -142,6 +150,7 @@ fun FloatingButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     FloatingActionButton(
         modifier = modifier,
         shape = CircleShape,
+        elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
         onClick = onClick
     ) {
         Icon(Icons.Filled.Add, "Add")
