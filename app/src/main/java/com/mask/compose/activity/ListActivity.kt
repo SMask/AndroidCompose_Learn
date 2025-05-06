@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
@@ -33,6 +34,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -43,12 +45,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -197,6 +202,8 @@ fun ListRoot(state: LazyListState, viewModel: ListViewModel, modifier: Modifier 
 
 @Composable
 fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Modifier) {
+    var isExpand by remember { mutableStateOf(true) }
+
     Row(
         modifier = modifier
             .background(Color(0x80FF0000))
@@ -207,25 +214,27 @@ fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Mo
             modifier = Modifier.weight(1f)
         ) {
             Text(
+                modifier = Modifier
+                    .animateContentSize(),
                 style = Style.TextStyle.CONTENT,
-                text = "Id: ${data.id}"
+                maxLines = if (isExpand) 10 else 2,
+                overflow = TextOverflow.Ellipsis,
+                text = "Id: ${data.id}\n" +
+                        "Name: ${data.name}\n" +
+                        "Price: ${data.price}\n" +
+                        "Quantity: ${data.quantity}\n" +
+                        "Total Price: ${data.totalPrice}"
             )
-            Text(
-                style = Style.TextStyle.CONTENT,
-                text = "Name: ${data.name}"
-            )
-            Text(
-                style = Style.TextStyle.CONTENT,
-                text = "Price: ${data.price}"
-            )
-            Text(
-                style = Style.TextStyle.CONTENT,
-                text = "Quantity: ${data.quantity}"
-            )
-            Text(
-                style = Style.TextStyle.CONTENT,
-                text = "Total Price: ${data.totalPrice}"
-            )
+            Button(
+                modifier = Modifier
+                    .padding(top = Dimen.padding)
+                    .height(Dimen.buttonHeight),
+                onClick = {
+                    isExpand = !isExpand
+                }
+            ) {
+                Text(text = if (isExpand) "收起" else "展开")
+            }
         }
         IconButton(onClick = {
             viewModel.deleteItem(data.id)
