@@ -133,7 +133,12 @@ fun ListRoot(state: LazyListState, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        itemsIndexed(dataList) { index, data ->
+        itemsIndexed(
+            items = dataList,
+            key = { index, data ->
+                data
+            }
+        ) { index, data ->
             ListItem(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -210,7 +215,12 @@ fun ListHeader(modifier: Modifier = Modifier) {
                 .height(120.dp),
             horizontalArrangement = Arrangement.spacedBy(Dimen.padding)
         ) {
-            itemsIndexed(dataList) { index, data ->
+            itemsIndexed(
+                items = dataList,
+                key = { index, data ->
+                    data
+                }
+            ) { index, data ->
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -245,7 +255,12 @@ fun ListFooter(modifier: Modifier = Modifier) {
                 .height(120.dp),
             verticalArrangement = Arrangement.spacedBy(Dimen.padding)
         ) {
-            itemsIndexed(dataList) { index, data ->
+            itemsIndexed(
+                items = dataList,
+                key = { index, data ->
+                    data
+                }
+            ) { index, data ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
