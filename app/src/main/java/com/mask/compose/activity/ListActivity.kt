@@ -143,6 +143,11 @@ fun ListRoot(state: LazyListState, modifier: Modifier = Modifier) {
                 }
             )
         }
+        item {
+            ListFooter(
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
 
@@ -182,7 +187,7 @@ fun ListItem(
 @Composable
 fun ListHeader(modifier: Modifier = Modifier) {
     val url = "https://img2.baidu.com/it/u=1069513219,1854441023&fm=253&f=JPEG"
-    val dataList = (1..100).toMutableList()
+    val dataList = (1..30).toMutableList()
 
     Column(
         modifier = modifier
@@ -190,7 +195,8 @@ fun ListHeader(modifier: Modifier = Modifier) {
         GlideImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(16f / 9f),
+                .aspectRatio(16f / 9f)
+                .clip(RoundedCornerShape(Dimen.radius)),
             contentScale = ContentScale.Crop,
             model = url,
             contentDescription = "GlideImage",
@@ -199,8 +205,8 @@ fun ListHeader(modifier: Modifier = Modifier) {
         )
         LazyRow(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(top = Dimen.padding)
+                .fillMaxWidth()
                 .height(120.dp),
             horizontalArrangement = Arrangement.spacedBy(Dimen.padding)
         ) {
@@ -221,6 +227,53 @@ fun ListHeader(modifier: Modifier = Modifier) {
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+fun ListFooter(modifier: Modifier = Modifier) {
+    val url = "https://img2.baidu.com/it/u=1069513219,1854441023&fm=253&f=JPEG"
+    val dataList = (1..30).toMutableList()
+
+    Column(
+        modifier = modifier
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(120.dp),
+            verticalArrangement = Arrangement.spacedBy(Dimen.padding)
+        ) {
+            itemsIndexed(dataList) { index, data ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(4f / 1f)
+                        .clip(RoundedCornerShape(Dimen.radius))
+                        .background(Color(0x800000FF))
+                        .padding(Dimen.padding)
+                ) {
+                    Text(
+                        modifier = Modifier.align(Alignment.Center),
+                        style = Style.TextStyle.CONTENT,
+                        text = "$index - $data"
+                    )
+                }
+            }
+        }
+        GlideImage(
+            modifier = Modifier
+                .padding(top = Dimen.padding)
+                .fillMaxWidth()
+                .aspectRatio(16f / 9f)
+                .clip(RoundedCornerShape(Dimen.radius)),
+            contentScale = ContentScale.Crop,
+            model = url,
+            contentDescription = "GlideImage",
+            loading = placeholder(R.color.placeholder_loading),
+            failure = placeholder(R.color.placeholder_error)
+        )
     }
 }
 
