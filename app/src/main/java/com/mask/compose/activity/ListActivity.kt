@@ -104,7 +104,6 @@ fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
             ListRoot(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(0.dp)
                     .weight(1f),
                 viewModel = viewModel,
                 state = listState
