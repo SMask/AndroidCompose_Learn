@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,18 +29,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -271,9 +275,54 @@ fun AnimationContentAnimateContentSize(modifier: Modifier = Modifier) {
 fun AnimationContentAnimateAsState(modifier: Modifier = Modifier) {
     LogUtils.i("AnimationContentAnimateAsState")
 
-    Text(
-        text = "AnimateAsState"
-    )
+    Column(
+        modifier = modifier
+            .padding(Dimen.padding),
+        verticalArrangement = Arrangement.Center
+    ) {
+        AnimationContentAnimateFloatAsState(
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun AnimationContentAnimateFloatAsState(modifier: Modifier = Modifier) {
+    LogUtils.i("AnimationContentAnimateFloatAsState")
+
+    var progress by remember { mutableFloatStateOf(0.2f) }
+    val animProgress by animateFloatAsState(targetValue = progress)
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        LinearProgressIndicator(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(6.dp),
+            color = Color(0x80FF0000),
+            strokeCap = StrokeCap.Round,
+            progress = {
+                animProgress
+            }
+        )
+        Button(
+            modifier = Modifier
+                .padding(top = Dimen.padding)
+                .height(Dimen.buttonHeight),
+            onClick = {
+                if (progress >= 1.0f) {
+                    progress = 0f
+                } else {
+                    progress += 0.2f
+                }
+            }
+        ) {
+            Text(text = stringResource(R.string.update))
+        }
+    }
 }
 
 @Composable
