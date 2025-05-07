@@ -84,6 +84,8 @@
     <string name="animation_animated_visibility">AnimatedVisibility</string>
     <string name="animation_animate_content_size">animateContentSize</string>
     <string name="animation_animate_as_state">animateAsState</string>
+    <string name="animation_animate_float_as_state">animateFloatAsState</string>
+    <string name="animation_animate_color_as_state">animateColorAsState</string>
     <string name="animation_infinite_transition">InfiniteTransition</string>
 
 </resources>

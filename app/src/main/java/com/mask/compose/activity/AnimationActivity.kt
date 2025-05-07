@@ -7,11 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -37,6 +39,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -52,7 +55,9 @@ import androidx.compose.ui.unit.sp
 import com.mask.compose.R
 import com.mask.compose.enums.AnimationType
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
+import com.mask.compose.ui.theme.ColorArr
 import com.mask.compose.ui.theme.Dimen
+import com.mask.compose.ui.theme.Style
 import com.mask.compose.utils.ActivityUtils
 import com.mask.compose.utils.LogUtils
 import com.mask.compose.utils.ToastUtils
@@ -284,6 +289,11 @@ fun AnimationContentAnimateAsState(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
         )
+        AnimationContentAnimateColorAsState(
+            modifier = Modifier
+                .padding(top = Dimen.paddingItem)
+                .fillMaxWidth()
+        )
     }
 }
 
@@ -295,11 +305,15 @@ fun AnimationContentAnimateFloatAsState(modifier: Modifier = Modifier) {
     val animProgress by animateFloatAsState(targetValue = progress)
 
     Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier
     ) {
+        Text(
+            style = Style.TextStyle.LABEL,
+            text = stringResource(R.string.animation_animate_float_as_state)
+        )
         LinearProgressIndicator(
             modifier = Modifier
+                .padding(top = Dimen.padding)
                 .fillMaxWidth()
                 .height(6.dp),
             color = Color(0x80FF0000),
@@ -311,12 +325,53 @@ fun AnimationContentAnimateFloatAsState(modifier: Modifier = Modifier) {
         Button(
             modifier = Modifier
                 .padding(top = Dimen.padding)
-                .height(Dimen.buttonHeight),
+                .height(Dimen.buttonHeight)
+                .align(Alignment.End),
             onClick = {
                 if (progress >= 1.0f) {
                     progress = 0f
                 } else {
                     progress += 0.2f
+                }
+            }
+        ) {
+            Text(text = stringResource(R.string.update))
+        }
+    }
+}
+
+@Composable
+fun AnimationContentAnimateColorAsState(modifier: Modifier = Modifier) {
+    LogUtils.i("AnimationContentAnimateColorAsState")
+
+    var index by remember { mutableIntStateOf(0) }
+    val color = ColorArr[index]
+    val animColor by animateColorAsState(targetValue = color)
+
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            style = Style.TextStyle.LABEL,
+            text = stringResource(R.string.animation_animate_color_as_state)
+        )
+        Box(
+            modifier = Modifier
+                .padding(top = Dimen.padding)
+                .fillMaxWidth()
+                .height(120.dp)
+                .background(animColor)
+        )
+        Button(
+            modifier = Modifier
+                .padding(top = Dimen.padding)
+                .height(Dimen.buttonHeight)
+                .align(Alignment.End),
+            onClick = {
+                if (index >= (ColorArr.size - 1)) {
+                    index = 0
+                } else {
+                    index++
                 }
             }
         ) {
