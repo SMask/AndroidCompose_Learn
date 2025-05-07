@@ -63,6 +63,16 @@ class StateViewModelActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun StateViewModelLayoutPreview() {
+    AndroidCompose_DemoTheme {
+        StateViewModelLayout(
+            viewModel = viewModel()
+        )
+    }
+}
+
 @Composable
 fun StateViewModelLayout(viewModel: StateViewModel, modifier: Modifier = Modifier) {
     val countAdd by viewModel.countAdd.observeAsState(0)
@@ -122,15 +132,5 @@ fun StateViewModelCounter(
                 text = actionText
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun StateViewModelLayoutPreview() {
-    AndroidCompose_DemoTheme {
-        StateViewModelLayout(
-            viewModel = viewModel()
-        )
     }
 }

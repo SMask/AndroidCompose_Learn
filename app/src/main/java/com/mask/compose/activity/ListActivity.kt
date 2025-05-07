@@ -99,6 +99,16 @@ class ListActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ListLayoutPreview() {
+    AndroidCompose_DemoTheme {
+        ListLayout(
+            viewModel = viewModel()
+        )
+    }
+}
+
 @Composable
 fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
     val listState = rememberLazyListState()
@@ -357,16 +367,6 @@ fun ListFooter(modifier: Modifier = Modifier) {
             contentDescription = null,
             loading = placeholder(R.color.placeholder_loading),
             failure = placeholder(R.color.placeholder_error)
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ListLayoutPreview() {
-    AndroidCompose_DemoTheme {
-        ListLayout(
-            viewModel = viewModel()
         )
     }
 }

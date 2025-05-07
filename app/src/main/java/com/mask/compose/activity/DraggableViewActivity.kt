@@ -67,6 +67,14 @@ class DraggableViewActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DraggableViewLayoutPreview() {
+    AndroidCompose_DemoTheme {
+        DraggableViewLayout()
+    }
+}
+
 @Composable
 fun DraggableViewLayout(modifier: Modifier = Modifier) {
     Box(
@@ -170,13 +178,5 @@ fun DraggableFree(modifier: Modifier = Modifier) {
             style = Style.TextStyle.CONTENT,
             text = text
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DraggableViewLayoutPreview() {
-    AndroidCompose_DemoTheme {
-        DraggableViewLayout()
     }
 }

@@ -87,6 +87,14 @@ class CommonViewActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun CommonViewLayoutPreview() {
+    AndroidCompose_DemoTheme {
+        CommonViewLayout()
+    }
+}
+
 @Composable
 fun CommonViewLayout(modifier: Modifier = Modifier) {
     Column(
@@ -358,12 +366,4 @@ private fun CommonProgress() {
         trackColor = Color(0xFFF0F0F0),
         strokeCap = StrokeCap.Round
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CommonViewLayoutPreview() {
-    AndroidCompose_DemoTheme {
-        CommonViewLayout()
-    }
 }

@@ -45,18 +45,18 @@ class AnimationActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun AnimationLayout(modifier: Modifier = Modifier) {
-    Text(
-        modifier = modifier,
-        text = "Hello"
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun AnimationLayoutPreview() {
     AndroidCompose_DemoTheme {
         AnimationLayout()
     }
+}
+
+@Composable
+fun AnimationLayout(modifier: Modifier = Modifier) {
+    Text(
+        modifier = modifier,
+        text = "Hello"
+    )
 }

@@ -43,6 +43,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun MainLayoutPreview() {
+    AndroidCompose_DemoTheme {
+        MainLayout()
+    }
+}
+
 @Composable
 fun MainLayout(modifier: Modifier = Modifier) {
     val context = LocalContext.current
@@ -105,13 +113,5 @@ fun ActivityButton(textResId: Int, onClick: () -> Unit, modifier: Modifier = Mod
         Text(
             text = stringResource(textResId)
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainLayoutPreview() {
-    AndroidCompose_DemoTheme {
-        MainLayout()
     }
 }
