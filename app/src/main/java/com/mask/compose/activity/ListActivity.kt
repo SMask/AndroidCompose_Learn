@@ -246,19 +246,25 @@ fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Mo
                 Text(text = stringResource(if (isExpand) R.string.collapse else R.string.expand))
             }
         }
-        IconButton(onClick = {
-            viewModel.deleteItem(data.id)
-        }) {
+        IconButton(
+            onClick = {
+                viewModel.deleteItem(data.id)
+            }
+        ) {
             Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete))
         }
-        IconButton(onClick = {
-            viewModel.minusQuantity(data.id)
-        }) {
+        IconButton(
+            onClick = {
+                viewModel.minusQuantity(data.id)
+            }
+        ) {
             Icon(Icons.Default.KeyboardArrowDown, contentDescription = stringResource(R.string.minus))
         }
-        IconButton(onClick = {
-            viewModel.addQuantity(data.id)
-        }) {
+        IconButton(
+            onClick = {
+                viewModel.addQuantity(data.id)
+            }
+        ) {
             Icon(Icons.Default.KeyboardArrowUp, contentDescription = stringResource(R.string.add))
         }
     }
