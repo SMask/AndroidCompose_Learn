@@ -1,7 +1,38 @@
 <resources>
+
     <string name="app_name">AndroidCompose_Learn</string>
     <string name="title_activity_common_view">基础控件</string>
     <string name="title_activity_draggable_view">可拖拽控件</string>
-    <string name="title_activity_state_view_model">StateViewModel</string>
-    <string name="title_activity_list">列表</string>
+    <string name="title_activity_state_view_model">State + ViewModel</string>
+    <string name="title_activity_list">列表控件</string>
+
+    <!-- 通用 -->
+    <string name="add">加</string>
+    <string name="minus">减</string>
+    <string name="delete">删除</string>
+    <string name="expand">展开</string>
+    <string name="collapse">收起</string>
+
+    <!-- 基础控件 -->
+    <string name="common_view_button">Button 按钮</string>
+    <string name="common_view_text_field">TextField 文本输入框(旋转屏幕不会丢失输入内容)</string>
+    <string name="common_view_text_field_hint">%s hint</string>
+    <string name="common_view_image_drawable">Image 图片控件 Drawable</string>
+    <string name="common_view_image_bitmap">Image 图片控件 Bitmap</string>
+    <string name="common_view_image_glide">Image 图片控件 Glide</string>
+    <string name="common_view_image_round">Image 图片控件 圆角</string>
+    <string name="common_view_image_circle">Image 图片控件 圆形</string>
+    <string name="common_view_progress">ProgressIndicator 进度条</string>
+
+    <!-- 可拖拽控件 -->
+    <string name="draggable_view_horizontal">水平拖拽</string>
+    <string name="draggable_view_vertical">垂直拖拽</string>
+    <string name="draggable_view_free">任意拖拽</string>
+
+    <!-- 列表控件 -->
+    <string name="list_total_price">总价格：%d</string>
+    <string name="list_item_content">Id: %s\n名称: %s\n单价: %d\n数量: %d\n总价: %d</string>
+    <string name="list_header_item_content">Header：%d - %d</string>
+    <string name="list_footer_item_content">Footer：%d - %d</string>
+
 </resources>

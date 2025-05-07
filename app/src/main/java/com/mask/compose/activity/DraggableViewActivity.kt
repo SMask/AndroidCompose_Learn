@@ -28,9 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.mask.compose.R
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
@@ -77,7 +79,7 @@ fun DraggableViewLayout(modifier: Modifier = Modifier) {
         DraggableVertical(
             modifier = Modifier.align(alignment = Alignment.CenterStart)
         )
-        Draggable(
+        DraggableFree(
             modifier = Modifier.align(alignment = Alignment.Center)
         )
     }
@@ -86,7 +88,7 @@ fun DraggableViewLayout(modifier: Modifier = Modifier) {
 @Composable
 fun DraggableHorizontal(modifier: Modifier = Modifier) {
     var xOffset by remember { mutableFloatStateOf(0f) }
-    val xText = "水平拖拽"
+    val xText = stringResource(R.string.draggable_view_horizontal)
 
     Box(
         modifier = modifier
@@ -115,7 +117,7 @@ fun DraggableHorizontal(modifier: Modifier = Modifier) {
 @Composable
 fun DraggableVertical(modifier: Modifier = Modifier) {
     var yOffset by remember { mutableFloatStateOf(0f) }
-    val yText = "垂直拖拽"
+    val yText = stringResource(R.string.draggable_view_vertical)
 
     Box(
         modifier = modifier
@@ -142,10 +144,10 @@ fun DraggableVertical(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun Draggable(modifier: Modifier = Modifier) {
+fun DraggableFree(modifier: Modifier = Modifier) {
     var xOffset by remember { mutableFloatStateOf(0f) }
     var yOffset by remember { mutableFloatStateOf(0f) }
-    val text = "任意拖拽"
+    val text = stringResource(R.string.draggable_view_free)
 
     Box(
         modifier = modifier

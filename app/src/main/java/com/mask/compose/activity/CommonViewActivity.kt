@@ -45,12 +45,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.mask.compose.R
+import com.mask.compose.common.config.Global
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
@@ -109,7 +111,7 @@ fun CommonViewLayout(modifier: Modifier = Modifier) {
 @Composable
 private fun CommonButton() {
     val context = LocalContext.current
-    val btnText = "Button 按钮"
+    val btnText = stringResource(R.string.common_view_button)
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -140,7 +142,7 @@ private fun CommonButton() {
 @Composable
 private fun CommonTextField() {
     var content by rememberSaveable { mutableStateOf("") }
-    val tfText = "TextField 文本输入框(旋转屏幕不会丢失输入内容)"
+    val tfText = stringResource(R.string.common_view_text_field)
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -157,14 +159,14 @@ private fun CommonTextField() {
             errorContainerColor = Color.Cyan
         ),
         onValueChange = { value ->
-            LogUtils.i("Mask", value)
+            LogUtils.i(value)
             content = value
         },
         value = content,
         placeholder = {
             Text(
                 color = Color.Gray,
-                text = "$tfText hint"
+                text = stringResource(R.string.common_view_text_field_hint, tfText)
             )
         }
     )
@@ -178,7 +180,7 @@ private fun CommonTextField() {
 
 @Composable
 private fun CommonImageDrawable() {
-    val imgDrawableText = "Image 图片控件 Drawable"
+    val imgDrawableText = stringResource(R.string.common_view_image_drawable)
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -207,7 +209,7 @@ private fun CommonImageDrawable() {
 
 @Composable
 private fun CommonImageBitmap() {
-    val imgBitmapText = "Image 图片控件 Bitmap"
+    val imgBitmapText = stringResource(R.string.common_view_image_bitmap)
     val bitmap = ImageBitmap.imageResource(R.drawable.image_bx)
 
     Text(
@@ -238,8 +240,7 @@ private fun CommonImageBitmap() {
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun CommonImageGlide() {
-    val imgGlideText = "Image 图片控件 Glide"
-    val url = "https://img2.baidu.com/it/u=1069513219,1854441023&fm=253&f=JPEG"
+    val imgGlideText = stringResource(R.string.common_view_image_glide)
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -254,7 +255,7 @@ private fun CommonImageGlide() {
     ) {
         GlideImage(
             modifier = Modifier.fillMaxSize(),
-            model = url,
+            model = Global.Url.Image.BX_1,
             contentDescription = imgGlideText,
             loading = placeholder(R.color.placeholder_loading),
             failure = placeholder(R.color.placeholder_error)
@@ -270,7 +271,7 @@ private fun CommonImageGlide() {
 
 @Composable
 private fun CommonImageRound() {
-    val imgRoundText = "Image 图片控件 圆角"
+    val imgRoundText = stringResource(R.string.common_view_image_round)
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -302,7 +303,7 @@ private fun CommonImageRound() {
 
 @Composable
 private fun CommonImageCircle(modifier: Modifier) {
-    val imgCircleText = "Image 图片控件 圆形"
+    val imgCircleText = stringResource(R.string.common_view_image_circle)
 
     Text(
         style = Style.TextStyle.LABEL,
@@ -333,7 +334,7 @@ private fun CommonImageCircle(modifier: Modifier) {
 
 @Composable
 private fun CommonProgress() {
-    val progressText = "ProgressIndicator 进度条"
+    val progressText = stringResource(R.string.common_view_progress)
 
     Text(
         style = Style.TextStyle.LABEL,

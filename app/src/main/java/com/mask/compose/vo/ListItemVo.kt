@@ -8,7 +8,7 @@ package com.mask.compose.vo
 data class ListItemVo(
     val id: String?,
     val name: String?,
-    val price: Int?,
+    val price: Int?, // 单价
     var quantity: Int? // 数量
 ) {
     val totalPrice

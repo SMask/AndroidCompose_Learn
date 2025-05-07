@@ -9,6 +9,12 @@ import android.util.Log
  */
 object LogUtils {
 
+    private const val TAG = "Mask"
+
+    fun i(msg: String) {
+        i(TAG, msg)
+    }
+
     fun i(tag: String?, msg: String) {
         Log.i(tag, msg)
     }

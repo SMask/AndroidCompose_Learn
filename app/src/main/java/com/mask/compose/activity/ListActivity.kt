@@ -53,6 +53,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,6 +62,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.mask.compose.R
+import com.mask.compose.common.config.Global
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
@@ -128,7 +130,7 @@ fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
                         .align(Alignment.CenterStart)
                         .padding(start = Dimen.padding),
                     style = Style.TextStyle.CONTENT,
-                    text = "总价格：$totalPrice"
+                    text = stringResource(R.string.list_total_price, totalPrice)
                 )
             }
         }
@@ -158,7 +160,7 @@ fun FloatingButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
         elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
         onClick = onClick
     ) {
-        Icon(Icons.Filled.Add, "Add")
+        Icon(Icons.Filled.Add, stringResource(R.string.add))
     }
 }
 
@@ -219,11 +221,14 @@ fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Mo
                 style = Style.TextStyle.CONTENT,
                 maxLines = if (isExpand) 10 else 2,
                 overflow = TextOverflow.Ellipsis,
-                text = "Id: ${data.id}\n" +
-                        "Name: ${data.name}\n" +
-                        "Price: ${data.price}\n" +
-                        "Quantity: ${data.quantity}\n" +
-                        "Total Price: ${data.totalPrice}"
+                text = stringResource(
+                    R.string.list_item_content,
+                    data.id ?: "",
+                    data.name ?: "",
+                    data.price ?: 0,
+                    data.quantity ?: 0,
+                    data.totalPrice
+                )
             )
             Button(
                 modifier = Modifier
@@ -233,23 +238,23 @@ fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Mo
                     isExpand = !isExpand
                 }
             ) {
-                Text(text = if (isExpand) "收起" else "展开")
+                Text(text = stringResource(if (isExpand) R.string.collapse else R.string.expand))
             }
         }
         IconButton(onClick = {
             viewModel.deleteItem(data.id)
         }) {
-            Icon(Icons.Default.Delete, contentDescription = "Delete")
+            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete))
         }
         IconButton(onClick = {
             viewModel.minusQuantity(data.id)
         }) {
-            Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Delete")
+            Icon(Icons.Default.KeyboardArrowDown, contentDescription = stringResource(R.string.minus))
         }
         IconButton(onClick = {
             viewModel.addQuantity(data.id)
         }) {
-            Icon(Icons.Default.KeyboardArrowUp, contentDescription = "Minus")
+            Icon(Icons.Default.KeyboardArrowUp, contentDescription = stringResource(R.string.add))
         }
     }
 }
@@ -257,7 +262,6 @@ fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Mo
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ListHeader(modifier: Modifier = Modifier) {
-    val url = "https://img2.baidu.com/it/u=1069513219,1854441023&fm=253&f=JPEG"
     val dataList = (1..30).toMutableList()
 
     Column(
@@ -269,8 +273,8 @@ fun ListHeader(modifier: Modifier = Modifier) {
                 .aspectRatio(16f / 9f)
                 .clip(RoundedCornerShape(Dimen.radius)),
             contentScale = ContentScale.Crop,
-            model = url,
-            contentDescription = "GlideImage",
+            model = Global.Url.Image.BX_1,
+            contentDescription = null,
             loading = placeholder(R.color.placeholder_loading),
             failure = placeholder(R.color.placeholder_error)
         )
@@ -298,7 +302,7 @@ fun ListHeader(modifier: Modifier = Modifier) {
                     Text(
                         modifier = Modifier.align(Alignment.Center),
                         style = Style.TextStyle.CONTENT,
-                        text = "$index - $data"
+                        text = stringResource(R.string.list_header_item_content, index, data)
                     )
                 }
             }
@@ -309,7 +313,6 @@ fun ListHeader(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ListFooter(modifier: Modifier = Modifier) {
-    val url = "https://img2.baidu.com/it/u=1069513219,1854441023&fm=253&f=JPEG"
     val dataList = (1..30).toMutableList()
 
     Column(
@@ -338,7 +341,7 @@ fun ListFooter(modifier: Modifier = Modifier) {
                     Text(
                         modifier = Modifier.align(Alignment.Center),
                         style = Style.TextStyle.CONTENT,
-                        text = "$index - $data"
+                        text = stringResource(R.string.list_footer_item_content, index, data)
                     )
                 }
             }
@@ -350,8 +353,8 @@ fun ListFooter(modifier: Modifier = Modifier) {
                 .aspectRatio(16f / 9f)
                 .clip(RoundedCornerShape(Dimen.radius)),
             contentScale = ContentScale.Crop,
-            model = url,
-            contentDescription = "GlideImage",
+            model = Global.Url.Image.BX_1,
+            contentDescription = null,
             loading = placeholder(R.color.placeholder_loading),
             failure = placeholder(R.color.placeholder_error)
         )
