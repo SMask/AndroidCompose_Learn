@@ -1,10 +1,7 @@
 package com.mask.compose.activity
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -42,7 +39,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -56,17 +52,15 @@ import com.mask.compose.common.config.Global
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
+import com.mask.compose.utils.ActivityUtils
 import com.mask.compose.utils.LogUtils
+import com.mask.compose.utils.ToastUtils
 
 class CommonViewActivity : ComponentActivity() {
 
     companion object {
         fun startActivity(context: Context) {
-            val intent = Intent(context, CommonViewActivity::class.java)
-            if (context !is Activity) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            context.startActivity(intent)
+            ActivityUtils.startActivity(context, CommonViewActivity::class.java)
         }
     }
 
@@ -118,7 +112,6 @@ fun CommonViewLayout(modifier: Modifier = Modifier) {
 
 @Composable
 private fun CommonButton() {
-    val context = LocalContext.current
     val btnText = stringResource(R.string.common_view_button)
 
     Text(
@@ -132,7 +125,7 @@ private fun CommonButton() {
             .height(Dimen.buttonHeight),
         contentPadding = PaddingValues(0.dp),
         onClick = {
-            Toast.makeText(context, btnText, Toast.LENGTH_LONG).show()
+            ToastUtils.show(btnText)
         }
     ) {
         Text(

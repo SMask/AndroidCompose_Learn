@@ -1,8 +1,6 @@
 package com.mask.compose.activity
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,16 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
+import com.mask.compose.utils.ActivityUtils
 
 class AnimationActivity : ComponentActivity() {
 
     companion object {
         fun startActivity(context: Context) {
-            val intent = Intent(context, AnimationActivity::class.java)
-            if (context !is Activity) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            context.startActivity(intent)
+            ActivityUtils.startActivity(context, AnimationActivity::class.java)
         }
     }
 

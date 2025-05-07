@@ -1,8 +1,6 @@
 package com.mask.compose.activity
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -66,6 +64,7 @@ import com.mask.compose.common.config.Global
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
+import com.mask.compose.utils.ActivityUtils
 import com.mask.compose.viewmodel.ListViewModel
 import com.mask.compose.vo.ListItemVo
 
@@ -73,11 +72,7 @@ class ListActivity : ComponentActivity() {
 
     companion object {
         fun startActivity(context: Context) {
-            val intent = Intent(context, ListActivity::class.java)
-            if (context !is Activity) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            context.startActivity(intent)
+            ActivityUtils.startActivity(context, ListActivity::class.java)
         }
     }
 

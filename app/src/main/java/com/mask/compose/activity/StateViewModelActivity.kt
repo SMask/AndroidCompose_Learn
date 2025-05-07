@@ -1,8 +1,6 @@
 package com.mask.compose.activity
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,17 +29,14 @@ import com.mask.compose.R
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
+import com.mask.compose.utils.ActivityUtils
 import com.mask.compose.viewmodel.StateViewModel
 
 class StateViewModelActivity : ComponentActivity() {
 
     companion object {
         fun startActivity(context: Context) {
-            val intent = Intent(context, StateViewModelActivity::class.java)
-            if (context !is Activity) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            context.startActivity(intent)
+            ActivityUtils.startActivity(context, StateViewModelActivity::class.java)
         }
     }
 
