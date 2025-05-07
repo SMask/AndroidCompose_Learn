@@ -82,6 +82,35 @@ fun AnimationLayout(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             selectedTab = selectedTab
         )
+        when (selectedTab.value) {
+            AnimationType.AnimatedVisibility -> {
+                AnimationAnimatedVisibility(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+
+            AnimationType.AnimateContentSize -> {
+                AnimationAnimateContentSize(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+
+            AnimationType.AnimateAsState -> {
+                AnimationAnimateAsState(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+
+            AnimationType.InfiniteTransition -> {
+                AnimationInfiniteTransition(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+        }
     }
 }
 
