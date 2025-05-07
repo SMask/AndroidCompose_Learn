@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -100,33 +101,37 @@ fun AnimationLayout(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             selectedTab = selectedTab
         )
-        when (selectedTab.value) {
-            AnimationType.AnimatedVisibility -> {
-                AnimationContentAnimatedVisibility(
-                    modifier = Modifier
-                        .fillMaxSize()
-                )
-            }
+        AnimatedContent(
+            targetState = selectedTab.value
+        ) { data ->
+            when (data) {
+                AnimationType.AnimatedVisibility -> {
+                    AnimationContentAnimatedVisibility(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
 
-            AnimationType.AnimateContentSize -> {
-                AnimationContentAnimateContentSize(
-                    modifier = Modifier
-                        .fillMaxSize()
-                )
-            }
+                AnimationType.AnimateContentSize -> {
+                    AnimationContentAnimateContentSize(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
 
-            AnimationType.AnimateAsState -> {
-                AnimationContentAnimateAsState(
-                    modifier = Modifier
-                        .fillMaxSize()
-                )
-            }
+                AnimationType.AnimateAsState -> {
+                    AnimationContentAnimateAsState(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
 
-            AnimationType.InfiniteTransition -> {
-                AnimationContentInfiniteTransition(
-                    modifier = Modifier
-                        .fillMaxSize()
-                )
+                AnimationType.InfiniteTransition -> {
+                    AnimationContentInfiniteTransition(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
             }
         }
     }
