@@ -85,6 +85,13 @@ fun MainLayout(modifier: Modifier = Modifier) {
                 ListActivity.startActivity(context)
             }
         )
+        ActivityButton(
+            modifier = buttonModifier(),
+            textResId = R.string.title_activity_animation,
+            onClick = {
+                AnimationActivity.startActivity(context)
+            }
+        )
     }
 }
 

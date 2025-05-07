@@ -5,6 +5,7 @@
     <string name="title_activity_draggable_view">可拖拽控件</string>
     <string name="title_activity_state_view_model">State + ViewModel</string>
     <string name="title_activity_list">列表控件</string>
+    <string name="title_activity_animation">动画</string>
 
     <!-- 通用 -->
     <string name="add">加</string>
