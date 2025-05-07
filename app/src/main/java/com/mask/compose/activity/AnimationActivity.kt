@@ -5,17 +5,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,15 +31,21 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.mask.compose.R
 import com.mask.compose.enums.AnimationType
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.utils.ActivityUtils
 import com.mask.compose.utils.LogUtils
+import com.mask.compose.utils.ToastUtils
 
 class AnimationActivity : ComponentActivity() {
 
@@ -84,30 +97,30 @@ fun AnimationLayout(modifier: Modifier = Modifier) {
         )
         when (selectedTab.value) {
             AnimationType.AnimatedVisibility -> {
-                AnimationAnimatedVisibility(
+                AnimationContentAnimatedVisibility(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxSize()
                 )
             }
 
             AnimationType.AnimateContentSize -> {
-                AnimationAnimateContentSize(
+                AnimationContentAnimateContentSize(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxSize()
                 )
             }
 
             AnimationType.AnimateAsState -> {
-                AnimationAnimateAsState(
+                AnimationContentAnimateAsState(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxSize()
                 )
             }
 
             AnimationType.InfiniteTransition -> {
-                AnimationInfiniteTransition(
+                AnimationContentInfiniteTransition(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxSize()
                 )
             }
         }
@@ -157,16 +170,55 @@ fun AnimationTabItem(data: AnimationType, isSelected: Boolean, onClick: () -> Un
 }
 
 @Composable
-fun AnimationAnimatedVisibility(modifier: Modifier = Modifier) {
+fun AnimationContentAnimatedVisibility(modifier: Modifier = Modifier) {
     LogUtils.i("AnimationAnimatedVisibility")
 
-    Text(
-        text = "AnimatedVisibility"
-    )
+    var isShow by remember { mutableStateOf(true) }
+    val fabText = stringResource(R.string.edit)
+    val actionText = stringResource(if (isShow) R.string.hide else R.string.show)
+
+    Column(
+        modifier = modifier
+            .padding(Dimen.padding),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        FloatingActionButton(
+            onClick = {
+                ToastUtils.show("$fabText $isShow")
+            }
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(PaddingValues(16.dp)),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Default.Edit, contentDescription = fabText)
+                AnimatedVisibility(isShow) {
+                    Text(
+                        modifier = Modifier
+                            .padding(start = Dimen.padding),
+                        fontSize = 16.sp,
+                        text = fabText
+                    )
+                }
+            }
+        }
+        Button(
+            modifier = Modifier
+                .padding(top = Dimen.padding)
+                .height(Dimen.buttonHeight),
+            onClick = {
+                isShow = !isShow
+            }
+        ) {
+            Text(text = actionText)
+        }
+    }
 }
 
 @Composable
-fun AnimationAnimateContentSize(modifier: Modifier = Modifier) {
+fun AnimationContentAnimateContentSize(modifier: Modifier = Modifier) {
     LogUtils.i("AnimationAnimateContentSize")
 
     Text(
@@ -175,7 +227,7 @@ fun AnimationAnimateContentSize(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AnimationAnimateAsState(modifier: Modifier = Modifier) {
+fun AnimationContentAnimateAsState(modifier: Modifier = Modifier) {
     LogUtils.i("AnimationAnimateAsState")
 
     Text(
@@ -184,7 +236,7 @@ fun AnimationAnimateAsState(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AnimationInfiniteTransition(modifier: Modifier = Modifier) {
+fun AnimationContentInfiniteTransition(modifier: Modifier = Modifier) {
     LogUtils.i("AnimationInfiniteTransition")
 
     Text(
