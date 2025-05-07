@@ -10,6 +10,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -302,7 +303,10 @@ fun AnimationContentAnimateFloatAsState(modifier: Modifier = Modifier) {
     LogUtils.i("AnimationContentAnimateFloatAsState")
 
     var progress by remember { mutableFloatStateOf(0.2f) }
-    val animProgress by animateFloatAsState(targetValue = progress)
+    val animProgress by animateFloatAsState(
+        targetValue = progress,
+        animationSpec = tween(durationMillis = 500)
+    )
 
     Column(
         modifier = modifier
