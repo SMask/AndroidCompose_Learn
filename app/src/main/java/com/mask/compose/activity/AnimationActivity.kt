@@ -6,7 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,6 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
@@ -36,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -171,7 +176,7 @@ fun AnimationTabItem(data: AnimationType, isSelected: Boolean, onClick: () -> Un
 
 @Composable
 fun AnimationContentAnimatedVisibility(modifier: Modifier = Modifier) {
-    LogUtils.i("AnimationAnimatedVisibility")
+    LogUtils.i("AnimationContentAnimatedVisibility")
 
     var isShow by remember { mutableStateOf(true) }
     val fabText = stringResource(R.string.edit)
@@ -219,16 +224,47 @@ fun AnimationContentAnimatedVisibility(modifier: Modifier = Modifier) {
 
 @Composable
 fun AnimationContentAnimateContentSize(modifier: Modifier = Modifier) {
-    LogUtils.i("AnimationAnimateContentSize")
+    LogUtils.i("AnimationContentAnimateContentSize")
 
-    Text(
-        text = "AnimateContentSize"
-    )
+    var isExpand by remember { mutableStateOf(true) }
+    val maxLines = if (isExpand) Int.MAX_VALUE else 5
+    val text = stringResource(R.string.text_long)
+    val actionText = stringResource(if (isExpand) R.string.collapse else R.string.expand)
+
+    Column(
+        modifier = modifier
+            .padding(Dimen.padding)
+            .verticalScroll(rememberScrollState()),
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Cyan)
+                .padding(Dimen.padding)
+                .animateContentSize()
+                .clickable {
+                    isExpand = !isExpand
+                },
+            maxLines = maxLines,
+            overflow = TextOverflow.Ellipsis,
+            text = text
+        )
+        Button(
+            modifier = Modifier
+                .padding(top = Dimen.padding)
+                .height(Dimen.buttonHeight),
+            onClick = {
+                isExpand = !isExpand
+            }
+        ) {
+            Text(text = actionText)
+        }
+    }
 }
 
 @Composable
 fun AnimationContentAnimateAsState(modifier: Modifier = Modifier) {
-    LogUtils.i("AnimationAnimateAsState")
+    LogUtils.i("AnimationContentAnimateAsState")
 
     Text(
         text = "AnimateAsState"
@@ -237,7 +273,7 @@ fun AnimationContentAnimateAsState(modifier: Modifier = Modifier) {
 
 @Composable
 fun AnimationContentInfiniteTransition(modifier: Modifier = Modifier) {
-    LogUtils.i("AnimationInfiniteTransition")
+    LogUtils.i("AnimationContentInfiniteTransition")
 
     Text(
         text = "InfiniteTransition"
