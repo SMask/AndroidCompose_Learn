@@ -36,4 +36,10 @@
     <string name="list_header_item_content">Header：%d - %d</string>
     <string name="list_footer_item_content">Footer：%d - %d</string>
 
+    <!-- 动画 -->
+    <string name="animation_animated_visibility">AnimatedVisibility</string>
+    <string name="animation_animate_content_size">animateContentSize</string>
+    <string name="animation_animate_as_state">animateAsState</string>
+    <string name="animation_infinite_transition">InfiniteTransition</string>
+
 </resources>
