@@ -11,6 +11,9 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -101,6 +104,29 @@ fun AnimationLayout(modifier: Modifier = Modifier) {
     LogUtils.i("AnimationLayout")
 
     val selectedTab = remember { mutableStateOf(AnimationType.AnimatedVisibility) }
+    val selectedTabPre = remember { mutableStateOf(selectedTab.value) }
+    val isSwitchFromLeftToRight by remember { derivedStateOf { selectedTab.value.ordinal > selectedTabPre.value.ordinal } }
+
+    LogUtils.i("AnimationLayout selectedTab: ${selectedTab.value} selectedTabPre: ${selectedTabPre.value} isSwitchFromLeftToRight: $isSwitchFromLeftToRight")
+
+    val anim = (slideInHorizontally(
+        initialOffsetX = { fullWidth ->
+            if (isSwitchFromLeftToRight) {
+                fullWidth
+            } else {
+                -fullWidth
+            }
+        }
+    )).togetherWith(
+        slideOutHorizontally(
+            targetOffsetX = { fullWidth ->
+                if (isSwitchFromLeftToRight) {
+                    -fullWidth
+                } else {
+                    fullWidth
+                }
+            }
+        ))
 
     Column(
         modifier = modifier
@@ -109,10 +135,17 @@ fun AnimationLayout(modifier: Modifier = Modifier) {
         AnimationTab(
             modifier = Modifier
                 .fillMaxWidth(),
-            selectedTab = selectedTab
+            selectedTab = selectedTab,
+            onClick = { data ->
+                selectedTabPre.value = selectedTab.value
+                selectedTab.value = data
+            }
         )
         AnimatedContent(
-            targetState = selectedTab.value
+            targetState = selectedTab.value,
+            transitionSpec = {
+                anim
+            }
         ) { data ->
             when (data) {
                 AnimationType.AnimatedVisibility -> {
@@ -148,7 +181,7 @@ fun AnimationLayout(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AnimationTab(selectedTab: MutableState<AnimationType>, modifier: Modifier = Modifier) {
+fun AnimationTab(selectedTab: MutableState<AnimationType>, onClick: (AnimationType) -> Unit, modifier: Modifier = Modifier) {
     LogUtils.i("AnimationTab selectedTab: ${selectedTab.value}")
 
     LazyRow(
@@ -163,7 +196,7 @@ fun AnimationTab(selectedTab: MutableState<AnimationType>, modifier: Modifier = 
                 data = data,
                 isSelected = isSelected,
                 onClick = {
-                    selectedTab.value = data
+                    onClick(data)
                 }
             )
         }
