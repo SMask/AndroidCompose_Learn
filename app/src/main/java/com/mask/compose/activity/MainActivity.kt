@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.mask.compose.R
 import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
+import com.mask.compose.utils.LogUtils
 
 class MainActivity : ComponentActivity() {
 
@@ -53,6 +54,8 @@ fun MainLayoutPreview() {
 
 @Composable
 fun MainLayout(modifier: Modifier = Modifier) {
+    LogUtils.i("MainLayout")
+
     val context = LocalContext.current
 
     fun buttonModifier(isTopPadding: Boolean = true) = Modifier
@@ -105,6 +108,8 @@ fun MainLayout(modifier: Modifier = Modifier) {
 
 @Composable
 fun ActivityButton(textResId: Int, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    LogUtils.i("ActivityButton ${stringResource(textResId)}")
+
     Button(
         modifier = modifier
             .height(Dimen.buttonHeight),

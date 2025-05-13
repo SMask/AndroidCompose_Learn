@@ -91,6 +91,8 @@ fun CommonViewLayoutPreview() {
 
 @Composable
 fun CommonViewLayout(modifier: Modifier = Modifier) {
+    LogUtils.i("CommonViewLayout")
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -112,6 +114,8 @@ fun CommonViewLayout(modifier: Modifier = Modifier) {
 
 @Composable
 private fun CommonButton() {
+    LogUtils.i("CommonButton")
+
     val btnText = stringResource(R.string.common_view_button)
 
     Text(
@@ -142,6 +146,8 @@ private fun CommonButton() {
 
 @Composable
 private fun CommonTextField() {
+    LogUtils.i("CommonTextField")
+
     var content by rememberSaveable { mutableStateOf("") }
     val tfText = stringResource(R.string.common_view_text_field)
 
@@ -181,6 +187,8 @@ private fun CommonTextField() {
 
 @Composable
 private fun CommonImageDrawable() {
+    LogUtils.i("CommonImageDrawable")
+
     val imgDrawableText = stringResource(R.string.common_view_image_drawable)
 
     Text(
@@ -210,6 +218,8 @@ private fun CommonImageDrawable() {
 
 @Composable
 private fun CommonImageBitmap() {
+    LogUtils.i("CommonImageBitmap")
+
     val imgBitmapText = stringResource(R.string.common_view_image_bitmap)
     val bitmap = ImageBitmap.imageResource(R.drawable.image_bx)
 
@@ -241,6 +251,8 @@ private fun CommonImageBitmap() {
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun CommonImageGlide() {
+    LogUtils.i("CommonImageGlide")
+
     val imgGlideText = stringResource(R.string.common_view_image_glide)
 
     Text(
@@ -272,6 +284,8 @@ private fun CommonImageGlide() {
 
 @Composable
 private fun CommonImageRound() {
+    LogUtils.i("CommonImageRound")
+
     val imgRoundText = stringResource(R.string.common_view_image_round)
 
     Text(
@@ -304,6 +318,8 @@ private fun CommonImageRound() {
 
 @Composable
 private fun CommonImageCircle(modifier: Modifier) {
+    LogUtils.i("CommonImageCircle")
+
     val imgCircleText = stringResource(R.string.common_view_image_circle)
 
     Text(
@@ -335,6 +351,8 @@ private fun CommonImageCircle(modifier: Modifier) {
 
 @Composable
 private fun CommonProgress() {
+    LogUtils.i("CommonProgress")
+
     val progressText = stringResource(R.string.common_view_progress)
 
     Text(

@@ -35,6 +35,7 @@ import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
 import com.mask.compose.utils.ActivityUtils
+import com.mask.compose.utils.LogUtils
 import kotlin.math.roundToInt
 
 class DraggableViewActivity : ComponentActivity() {
@@ -72,6 +73,8 @@ fun DraggableViewLayoutPreview() {
 
 @Composable
 fun DraggableViewLayout(modifier: Modifier = Modifier) {
+    LogUtils.i("DraggableViewLayout")
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -90,6 +93,8 @@ fun DraggableViewLayout(modifier: Modifier = Modifier) {
 
 @Composable
 fun DraggableHorizontal(modifier: Modifier = Modifier) {
+    LogUtils.i("DraggableHorizontal")
+
     var xOffset by remember { mutableFloatStateOf(0f) }
     val xText = stringResource(R.string.draggable_view_horizontal)
 
@@ -119,6 +124,8 @@ fun DraggableHorizontal(modifier: Modifier = Modifier) {
 
 @Composable
 fun DraggableVertical(modifier: Modifier = Modifier) {
+    LogUtils.i("DraggableVertical")
+
     var yOffset by remember { mutableFloatStateOf(0f) }
     val yText = stringResource(R.string.draggable_view_vertical)
 
@@ -148,6 +155,8 @@ fun DraggableVertical(modifier: Modifier = Modifier) {
 
 @Composable
 fun DraggableFree(modifier: Modifier = Modifier) {
+    LogUtils.i("DraggableFree")
+
     var xOffset by remember { mutableFloatStateOf(0f) }
     var yOffset by remember { mutableFloatStateOf(0f) }
     val text = stringResource(R.string.draggable_view_free)

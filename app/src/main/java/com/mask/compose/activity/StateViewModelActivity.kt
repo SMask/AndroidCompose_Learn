@@ -30,6 +30,7 @@ import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
 import com.mask.compose.utils.ActivityUtils
+import com.mask.compose.utils.LogUtils
 import com.mask.compose.viewmodel.StateViewModel
 
 class StateViewModelActivity : ComponentActivity() {
@@ -70,6 +71,8 @@ fun StateViewModelLayoutPreview() {
 
 @Composable
 fun StateViewModelLayout(viewModel: StateViewModel, modifier: Modifier = Modifier) {
+    LogUtils.i("StateViewModelLayout")
+
     val countAdd by viewModel.countAdd.observeAsState(0)
     val countMinus by viewModel.countMinus.observeAsState(0)
 
@@ -101,12 +104,9 @@ fun StateViewModelLayout(viewModel: StateViewModel, modifier: Modifier = Modifie
 }
 
 @Composable
-fun StateViewModelCounter(
-    content: String,
-    actionText: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
+fun StateViewModelCounter(content: String, actionText: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    LogUtils.i("StateViewModelCounter $content $actionText")
+
     Row(
         modifier = modifier
             .background(Color(0x80FF0000))

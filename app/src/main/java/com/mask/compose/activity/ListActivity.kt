@@ -65,6 +65,7 @@ import com.mask.compose.ui.theme.AndroidCompose_DemoTheme
 import com.mask.compose.ui.theme.Dimen
 import com.mask.compose.ui.theme.Style
 import com.mask.compose.utils.ActivityUtils
+import com.mask.compose.utils.LogUtils
 import com.mask.compose.viewmodel.ListViewModel
 import com.mask.compose.vo.ListItemVo
 
@@ -106,6 +107,8 @@ fun ListLayoutPreview() {
 
 @Composable
 fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
+    LogUtils.i("ListLayout")
+
     val listState = rememberLazyListState()
     val isVisibleFloatingButton by remember { derivedStateOf { listState.firstVisibleItemIndex <= 0 } }
     val totalPrice by viewModel.totalPrice.observeAsState(0)
@@ -159,6 +162,8 @@ fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
 
 @Composable
 fun FloatingButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    LogUtils.i("FloatingButton")
+
     FloatingActionButton(
         modifier = modifier,
         shape = CircleShape,
@@ -171,6 +176,8 @@ fun FloatingButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
 
 @Composable
 fun ListRoot(state: LazyListState, viewModel: ListViewModel, modifier: Modifier = Modifier) {
+    LogUtils.i("ListRoot")
+
     val dataList by viewModel.itemList.observeAsState(emptyList())
 
     LazyColumn(
@@ -209,6 +216,8 @@ fun ListRoot(state: LazyListState, viewModel: ListViewModel, modifier: Modifier 
 
 @Composable
 fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Modifier) {
+    LogUtils.i("ListItem $data")
+
     var isExpand by remember { mutableStateOf(true) }
 
     Row(
@@ -273,6 +282,8 @@ fun ListItem(data: ListItemVo, viewModel: ListViewModel, modifier: Modifier = Mo
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ListHeader(modifier: Modifier = Modifier) {
+    LogUtils.i("ListHeader")
+
     val dataList = (1..30).toMutableList()
 
     Column(
@@ -324,6 +335,8 @@ fun ListHeader(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ListFooter(modifier: Modifier = Modifier) {
+    LogUtils.i("ListFooter")
+
     val dataList = (1..30).toMutableList()
 
     Column(
