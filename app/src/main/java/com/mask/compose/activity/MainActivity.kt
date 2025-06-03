@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -62,44 +63,44 @@ fun MainLayout(modifier: Modifier = Modifier) {
 
     val context = LocalContext.current
 
-    fun buttonModifier(isTopPadding: Boolean = true) = Modifier
-        .padding(top = if (isTopPadding) Dimen.padding else 0.dp)
+    val buttonModifier = Modifier
         .fillMaxWidth()
 
     Column(
         modifier = modifier
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(Dimen.padding)
     ) {
         ButtonNormal(
-            modifier = buttonModifier(false),
+            modifier = buttonModifier,
             textResId = R.string.title_activity_common_view,
             onClick = {
                 CommonViewActivity.startActivity(context)
             }
         )
         ButtonNormal(
-            modifier = buttonModifier(),
+            modifier = buttonModifier,
             textResId = R.string.title_activity_draggable_view,
             onClick = {
                 DraggableViewActivity.startActivity(context)
             }
         )
         ButtonNormal(
-            modifier = buttonModifier(),
+            modifier = buttonModifier,
             textResId = R.string.title_activity_state_view_model,
             onClick = {
                 StateViewModelActivity.startActivity(context)
             }
         )
         ButtonNormal(
-            modifier = buttonModifier(),
+            modifier = buttonModifier,
             textResId = R.string.title_activity_list,
             onClick = {
                 ListActivity.startActivity(context)
             }
         )
         ButtonNormal(
-            modifier = buttonModifier(),
+            modifier = buttonModifier,
             textResId = R.string.title_activity_animation,
             onClick = {
                 AnimationActivity.startActivity(context)
