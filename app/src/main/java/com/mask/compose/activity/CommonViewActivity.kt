@@ -73,7 +73,10 @@ class CommonViewActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     CommonViewLayout(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
+                            .padding(16.dp)
                     )
                 }
             }
@@ -85,7 +88,11 @@ class CommonViewActivity : ComponentActivity() {
 @Composable
 fun CommonViewLayoutPreview() {
     AndroidCompose_DemoTheme {
-        CommonViewLayout()
+        CommonViewLayout(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        )
     }
 }
 
@@ -95,8 +102,6 @@ fun CommonViewLayout(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
         CommonButton()

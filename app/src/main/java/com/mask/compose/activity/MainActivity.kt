@@ -36,7 +36,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     MainLayout(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
+                            .padding(16.dp)
                     )
                 }
             }
@@ -48,7 +51,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainLayoutPreview() {
     AndroidCompose_DemoTheme {
-        MainLayout()
+        MainLayout(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        )
     }
 }
 
@@ -64,8 +71,6 @@ fun MainLayout(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
         ActivityButton(

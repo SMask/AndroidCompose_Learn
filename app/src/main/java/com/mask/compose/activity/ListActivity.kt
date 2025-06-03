@@ -86,7 +86,9 @@ class ListActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     ListLayout(
-                        modifier = Modifier.padding(innerPadding),
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize(),
                         viewModel = viewModel()
                     )
                 }
@@ -100,6 +102,8 @@ class ListActivity : ComponentActivity() {
 fun ListLayoutPreview() {
     AndroidCompose_DemoTheme {
         ListLayout(
+            modifier = Modifier
+                .fillMaxSize(),
             viewModel = viewModel()
         )
     }
@@ -115,7 +119,6 @@ fun ListLayout(viewModel: ListViewModel, modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
-            .fillMaxSize()
     ) {
         Column(
             modifier = Modifier.fillMaxSize()

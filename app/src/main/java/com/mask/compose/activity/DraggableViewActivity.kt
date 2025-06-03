@@ -55,7 +55,9 @@ class DraggableViewActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     DraggableViewLayout(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
                     )
                 }
             }
@@ -67,7 +69,10 @@ class DraggableViewActivity : ComponentActivity() {
 @Composable
 fun DraggableViewLayoutPreview() {
     AndroidCompose_DemoTheme {
-        DraggableViewLayout()
+        DraggableViewLayout(
+            modifier = Modifier
+                .fillMaxSize()
+        )
     }
 }
 
@@ -77,7 +82,6 @@ fun DraggableViewLayout(modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
-            .fillMaxSize()
     ) {
         DraggableHorizontal(
             modifier = Modifier.align(alignment = Alignment.TopCenter)

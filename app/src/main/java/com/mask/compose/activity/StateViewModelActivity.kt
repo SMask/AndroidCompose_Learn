@@ -50,7 +50,10 @@ class StateViewModelActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     StateViewModelLayout(
-                        modifier = Modifier.padding(innerPadding),
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
+                            .padding(Dimen.padding),
                         viewModel = viewModel()
                     )
                 }
@@ -64,6 +67,9 @@ class StateViewModelActivity : ComponentActivity() {
 fun StateViewModelLayoutPreview() {
     AndroidCompose_DemoTheme {
         StateViewModelLayout(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(Dimen.padding),
             viewModel = viewModel()
         )
     }
@@ -78,8 +84,6 @@ fun StateViewModelLayout(viewModel: StateViewModel, modifier: Modifier = Modifie
 
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(Dimen.padding)
     ) {
         StateViewModelCounter(
             modifier = Modifier

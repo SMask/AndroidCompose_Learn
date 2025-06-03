@@ -93,7 +93,9 @@ class AnimationActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     AnimationLayout(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
                     )
                 }
             }
@@ -105,7 +107,10 @@ class AnimationActivity : ComponentActivity() {
 @Composable
 fun AnimationLayoutPreview() {
     AndroidCompose_DemoTheme {
-        AnimationLayout()
+        AnimationLayout(
+            modifier = Modifier
+                .fillMaxSize()
+        )
     }
 }
 
@@ -140,7 +145,6 @@ fun AnimationLayout(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
-            .fillMaxSize()
     ) {
         AnimationTab(
             modifier = Modifier
