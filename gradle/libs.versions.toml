@@ -1,12 +1,12 @@
 [versions]
-agp = "8.10.0"
+agp = "8.10.1"
 kotlin = "2.1.0"
 coreKtx = "1.16.0"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.05.00"
+composeBom = "2025.05.01"
 lifecycleViewmodelCompose = "2.9.0"
-runtimeLivedata = "1.8.1"
+runtimeLivedata = "1.8.2"
 
 # 三方 SDK
 glideCompose = "1.0.0-beta01"
